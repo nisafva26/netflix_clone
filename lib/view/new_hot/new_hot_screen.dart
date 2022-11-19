@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_app/controller/movie_list_controller.dart';
 import 'package:netflix_app/view/new_hot/coming_soon.dart';
 import 'package:netflix_app/view/new_hot/top_10.dart';
@@ -77,9 +78,12 @@ class _NewHotScreenState extends State<NewHotScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     tabs:  [
-                      const Tab(
+                       Tab(
                         child: Text(
                           '🍿 Coming Soon',
+                          style: TextStyle(
+                             fontFamily: GoogleFonts.montserrat().fontFamily,
+                          ),
                         ),
                       ),
                       Tab(
@@ -102,8 +106,11 @@ class _NewHotScreenState extends State<NewHotScreen> {
                             SizedBox(width: 4.0,),
                             
 
-                            const Text(
+                             Text(
                               "Top 10 Movies",
+                              style: TextStyle(
+                             fontFamily: GoogleFonts.montserrat().fontFamily,
+                          ),
                             ),
                           ],
                         ),

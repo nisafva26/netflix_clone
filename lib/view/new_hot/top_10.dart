@@ -56,7 +56,7 @@ class Top10 extends StatelessWidget {
                                             Text(
                                               (index + 1).toString(),
                                               style: const TextStyle(
-                                                  fontSize: 25,
+                                                  fontSize: 30,
                                                   fontWeight: FontWeight.w900),
                                             ),
                                             Column(

@@ -77,6 +77,7 @@ class _CustomHomeScreen extends State<CustomHomeScreen> {
                         collapseMode: CollapseMode.pin,
                         background: BackgroundImage(
                           imageUrl: controller.horrorModel.results![1].posterPath!,
+                          id:controller.horrorModel.results![1].id ,
                         )),
                   ),
                   SliverList(

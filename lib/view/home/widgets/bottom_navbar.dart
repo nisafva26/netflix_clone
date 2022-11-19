@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_app/view/home/HomeScreen.dart';
 import 'package:netflix_app/view/home/downloads.dart';
 import 'package:netflix_app/view/new_hot/new_hot_screen.dart';
+import 'package:netflix_app/view/not_implented.dart';
 
 class NetflixBottomNav extends StatefulWidget {
   const NetflixBottomNav({Key? key}) : super(key: key);
@@ -13,10 +14,10 @@ class NetflixBottomNav extends StatefulWidget {
 class _NetflixBottomNavState extends State<NetflixBottomNav> {
   final pages = [
     const HomeScreen(),
-    const DownloadsPage(),
+    const NotImplemented(),
     const NewHotScreen(),
-    const HomeScreen(),
-    const DownloadsPage(),
+    const NotImplemented(),
+    const NotImplemented(),
   ];
 
   var selectedIndex = 0;

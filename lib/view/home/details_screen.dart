@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netflix_app/controller/dynamic_link_services.dart';
 import 'package:netflix_app/controller/movie_description_controller.dart';
 import 'package:netflix_app/view/home/video_screen.dart';
 import 'package:netflix_app/view/home/widgets/play_download_button.dart';
 import 'package:netflix_app/view/home/widgets/view_more.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../controller/movie_list_controller.dart';
@@ -54,8 +56,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
           backgroundColor: Colors.black,
           leading: const BackButton(color: Colors.white),
           actions: const [
-            
-            
             Icon(
               Icons.cast,
               color: Colors.white,
@@ -252,19 +252,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Column(
-                                              //crossAxisAlignment: CrossAxisAlignment.stretch,
-                                              children: const [
-                                                Icon(
-                                                  Icons.share,
-                                                  color: Colors.white,
-                                                ),
-                                                Text(
-                                                  'Share',
-                                                  style: TextStyle(
-                                                      color: Colors.grey, fontSize: 10.0),
-                                                )
-                                              ],
+                                            InkWell(
+                                              onTap: () async {
+                                                print(
+                                                    '===initializing dynamics links .....');
+                                                final link =
+                                                   await DynamicLinkServices.createDynamicLink(
+                                                        controller.description.id!);
+                                                print('link which is generated...');
+                                                print(link);
+                                                Share.share(link);
+                                              },
+                                              child: Column(
+                                                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: const [
+                                                  Icon(
+                                                    Icons.share,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    'Share',
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 10.0),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             Column(
                                               //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -306,8 +319,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       const SizedBox(
                                         height: 12.0,
                                       ),
-                                       ViewMoreWidget(moiveId:controller.description.id! ,)
-                                      
+                                      ViewMoreWidget(
+                                        moiveId: controller.description.id!,
+                                      )
                                     ]),
                               )
                             ]),

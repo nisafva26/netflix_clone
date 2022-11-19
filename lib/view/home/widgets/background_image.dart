@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix_app/controller/movie_list_controller.dart';
 import 'package:netflix_app/view/home/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
+import '../details_screen.dart';
+
 class BackgroundImage extends StatelessWidget {
   final String? imageUrl;
-  const BackgroundImage({Key? key, this.imageUrl}) : super(key: key);
+  final int? id;
+  const BackgroundImage({Key? key, this.imageUrl, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +20,37 @@ class BackgroundImage extends StatelessWidget {
       return Stack(
         children: [
           controller.checkStatus() == true
-              ? Image.network(
-                  'https://image.tmdb.org/t/p/original/$imageUrl',fit: BoxFit.cover,)
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  //color: Colors.white,
+                  child: Image.network(
+                    'https://image.tmdb.org/t/p/original/$imageUrl',
+                    fit: BoxFit.cover,
+                  ),
+                )
               : const SizedBox(),
-          Container(
-            height: dimension.height,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.black],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.5, 1],
-            )),
+          InkWell(
+              onTap: () {
+                      print('======tapped====');
+                      Get.to(
+                          DetailsScreen(
+                            movieId: id,
+                          ), //next page class
+                          duration: const Duration(
+                              milliseconds: 600), //duration of transitions, default 1 sec
+                          transition: Transition.rightToLeft //transition effect
+                          );
+                    },
+            child: Container(
+              height: dimension.height,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [Colors.transparent, Colors.black],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.5, 1],
+              )),
+            ),
           ),
           Positioned(
             bottom: 30,
@@ -49,19 +72,32 @@ class BackgroundImage extends StatelessWidget {
                     child: Padding(
                       padding:
                           const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const [
-                            Icon(
-                              Icons.play_arrow,
-                              color: Colors.black,
-                            ),
-                            Text(
-                              'Play',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, color: Colors.black),
-                            )
-                          ]),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(
+                              DetailsScreen(
+                                movieId: id,
+                              ), //next page class
+                              duration: const Duration(
+                                  milliseconds:
+                                      600), //duration of transitions, default 1 sec
+                              transition: Transition.rightToLeft //transition effect
+                              );
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: const [
+                              Icon(
+                                Icons.play_arrow,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                'Play',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700, color: Colors.black),
+                              )
+                            ]),
+                      ),
                     ),
                   ),
                   CustomButton(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netflix_app/view/home/custom_homescreen.dart';
 import 'package:netflix_app/view/search.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../../controller/dynamic_link_services.dart';
 import '../details_screen.dart';
 
 class SliverToolBar extends StatelessWidget {
@@ -36,21 +38,29 @@ class SliverToolBar extends StatelessWidget {
               child: Image.asset('assets/netflix_icon2.png'),
             ),
             const Spacer(),
-             IconButton(
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: SearchBar(),
-                );
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchBar(),
+                  );
+                },
+                icon: const Icon(
+                  Icons.search,
+                  size: 25,
+                )),
+            IconButton(
+              onPressed: () async {
+                print('===initializing dynamics links .....');
+                final link = await DynamicLinkServices.createDynamicLink(1807);
+                print('link which is generated inside...');
+                print(link);
+                Share.share(link);
               },
               icon: const Icon(
-                Icons.search,
-                size: 25,
-                
-              )),
-            const Icon(
-              Icons.cast,
-              color: Colors.white,
+                Icons.cast,
+                color: Colors.white,
+              ),
             )
           ],
         ),
@@ -63,12 +73,14 @@ class SliverToolBar extends StatelessWidget {
             InkWell(
               onTap: () {
                 Get.to(
-                  const CustomHomeScreen(tag: "cat1",text: 'TV Shows',), //next page class
-                  duration: const Duration(
-                      milliseconds: 600), 
-                      //duration of transitions, default 1 sec
-                      transition: Transition.upToDown //transition effect
-                );
+                    const CustomHomeScreen(
+                      tag: "cat1",
+                      text: 'TV Shows',
+                    ), //next page class
+                    duration: const Duration(milliseconds: 600),
+                    //duration of transitions, default 1 sec
+                    transition: Transition.upToDown //transition effect
+                    );
               },
               child: Hero(
                 tag: "cat1",
@@ -79,15 +91,17 @@ class SliverToolBar extends StatelessWidget {
                 ),
               ),
             ),
-             InkWell(
+            InkWell(
               onTap: () {
                 Get.to(
-                  const CustomHomeScreen(tag: "cat2",text: 'Movies',), //next page class
-                   duration: const Duration(
-                      milliseconds: 600), 
-                      //duration of transitions, default 1 sec
-                      transition: Transition.upToDown  //transition effect
-                );
+                    const CustomHomeScreen(
+                      tag: "cat2",
+                      text: 'Movies',
+                    ), //next page class
+                    duration: const Duration(milliseconds: 600),
+                    //duration of transitions, default 1 sec
+                    transition: Transition.upToDown //transition effect
+                    );
               },
               child: Hero(
                 tag: "cat2",
@@ -98,15 +112,17 @@ class SliverToolBar extends StatelessWidget {
                 ),
               ),
             ),
-             InkWell(
+            InkWell(
               onTap: () {
                 Get.to(
-                  const CustomHomeScreen(tag: "cat3",text: 'Categories',), //next page class
-                  duration: const Duration(
-                      milliseconds: 600), 
-                      //duration of transitions, default 1 sec
-                   transition: Transition.upToDown //transition effect
-                );
+                    const CustomHomeScreen(
+                      tag: "cat3",
+                      text: 'Categories',
+                    ), //next page class
+                    duration: const Duration(milliseconds: 600),
+                    //duration of transitions, default 1 sec
+                    transition: Transition.upToDown //transition effect
+                    );
               },
               child: Hero(
                 tag: "cat3",
@@ -131,7 +147,10 @@ class SliverToolBar extends StatelessWidget {
           style: const TextStyle(
               fontSize: 15.0, color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        Icon(Icons.keyboard_arrow_down,color: Colors.transparent,)
+        Icon(
+          Icons.keyboard_arrow_down,
+          color: Colors.transparent,
+        )
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:netflix_app/controller/dynamic_link_services.dart';
 import 'package:netflix_app/controller/movie_list_controller.dart';
 import 'package:netflix_app/view/home/details_screen.dart';
 import 'package:netflix_app/view/home/downloads.dart';
@@ -23,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      DynamicLinkServices.initDynamicLinks2(context);
+      
       Provider.of<MovieListController>(context, listen: false).getMovieList();
       Provider.of<MovieListController>(context, listen: false).getTop10();
       Provider.of<MovieListController>(context, listen: false).getHorror();
@@ -51,8 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final dimension = MediaQuery.of(context).size;
 
-   
-
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -75,7 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     flexibleSpace: FlexibleSpaceBar(
                         collapseMode: CollapseMode.pin,
                         background: BackgroundImage(
-                          imageUrl: controller.tredingModel.results![0].posterPath!,
+                          imageUrl: controller.top10model.results![0].posterPath!,
+                          id:controller.top10model.results![0].id ,
+                          
                         )),
                   ),
                   SliverList(
@@ -457,7 +460,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               );
       }),
-      
     );
   }
 
